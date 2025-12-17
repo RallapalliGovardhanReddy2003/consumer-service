@@ -37,6 +37,9 @@ public class AddressService {
     public void delete(Integer id) {
         repo.deleteById(id);
     }
+    public List<Address> getAllAddresses() {
+        return repo.findAll();
+    }
 
 }
 

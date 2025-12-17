@@ -1,7 +1,8 @@
 package com.example.consumerservice.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+
+import java.util.List;
 
 @Entity
 @Table(name = "addresses")
@@ -11,6 +12,8 @@ public class Address {
     private Integer employeeId;
 
     private String address;
+
+
 
     public Integer getEmployeeId() {
         return employeeId;

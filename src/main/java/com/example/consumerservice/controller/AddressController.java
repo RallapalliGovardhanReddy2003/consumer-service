@@ -46,6 +46,11 @@ public class AddressController {
         service.delete(id);
         return ResponseEntity.ok("Deleted successfully");
     }
+    @GetMapping("/alladdresses")
+    public ResponseEntity<List<Address>> getAllAddresses() {
+        List<Address> addresses = service.getAllAddresses();
+        return ResponseEntity.ok(addresses);
+    }
 
 }
 
