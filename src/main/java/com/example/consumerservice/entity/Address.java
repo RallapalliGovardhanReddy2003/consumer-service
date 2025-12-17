@@ -8,9 +8,12 @@ import jakarta.validation.constraints.NotBlank;
 public class Address {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     private String address;
+
+    private Integer employeeId;
 
     public Integer getId() {
         return id;
@@ -26,6 +29,14 @@ public class Address {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
     }
 }
 
