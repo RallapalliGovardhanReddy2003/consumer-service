@@ -13,7 +13,19 @@ public class Address {
     
     private String address;
 
+    private String permanentAddress;
+
     private Integer employeeId;
+
+    public String getPermanentAddress() {
+        return permanentAddress;
+    }
+
+    public void setPermanentAddress(String permanentAddress) {
+        this.permanentAddress = permanentAddress;
+    }
+
+
 
     public Integer getId() {
         return id;

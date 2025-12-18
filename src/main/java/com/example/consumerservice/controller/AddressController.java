@@ -51,6 +51,11 @@ public class AddressController {
         List<Address> addresses = service.getAllAddresses();
         return ResponseEntity.ok(addresses);
     }
+    @GetMapping("/employeeid/{Id}")
+    public ResponseEntity<List<Address>> getAddressesByEId(@PathVariable Integer Id) {
+        List<Address> addresses = service.getAddressesByEmployeeId(Id);
+        return ResponseEntity.ok(addresses);
+    }
 
 }
 
