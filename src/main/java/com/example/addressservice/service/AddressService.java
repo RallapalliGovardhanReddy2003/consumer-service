@@ -1,32 +1,31 @@
 package com.example.addressservice.service;
 
+import com.example.addressservice.client.EmployeeClient;
 import com.example.addressservice.entity.Address;
 import com.example.addressservice.repository.AddressRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class AddressService {
-
+    @Autowired
     private final AddressRepository repo;
-    private final RestTemplate restTemplate;
-
-    private static final String EMPLOYEE_URL =
-            "http://localhost:8085/employees//by-employeeid/{employeeId}";
-
+    @Autowired
+    private EmployeeClient employeeClient;
     private static final Logger logger =
             LoggerFactory.getLogger(AddressService.class);
 
-    public AddressService(AddressRepository repo, RestTemplate restTemplate) {
+    public AddressService(AddressRepository repo) {
         this.repo = repo;
-        this.restTemplate = restTemplate;
     }
+
 
     public Address save(Address address) {
         logger.info("Saving address: {}", address);
@@ -65,22 +64,23 @@ public class AddressService {
     }
 
     // ✅ FIXED METHOD
-    public Map<String, Object> getEmployeeWithAddresses(Integer employeeId) {
-        logger.info(" calling employee service for id :{}", employeeId);
-        List<Object> employeeList= (List<Object>) restTemplate.getForObject(EMPLOYEE_URL, Object.class, employeeId);
-        Object employee =null;
-        if(employeeList!=null && !employeeList.isEmpty()){
-            employee=employeeList.get(0);
-        }
+    public Map<String,Object> getEmployeeWithAddress(Integer employeeId){
+        logger.info("calling employee service id :{}",employeeId);
 
-        logger.info("Employee response: {}", employee);
-        List<Address> addresses =
-                repo.findByEmployeeId(employeeId);
+        Map<String,Object> employee=employeeClient.getEmployeeById(employeeId);
+        logger.info("Employee response:{}",employee);
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("employee", employee);
-        response.put("addresses", addresses);
+        List<Address> address=repo.findByEmployeeId(employeeId);
+
+        logger.info("Address response:{}",address);
+        Map<String,Object> response = new LinkedHashMap<>();
+        response.put("employee",employee);
+        response.put("Address",address);
+
 
         return response;
+
+
     }
+
 }

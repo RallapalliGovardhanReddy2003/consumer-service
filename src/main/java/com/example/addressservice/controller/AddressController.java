@@ -52,10 +52,11 @@ public class AddressController {
         List<Address> addresses = service.getAllAddresses();
         return ResponseEntity.ok(addresses);
     }
-    @GetMapping("/employee/{employeeId}")
-    public Map<String,Object> getEmployeeWithAddresses(@PathVariable Integer employeeId){
-        return service.getEmployeeWithAddresses(employeeId);
+    @GetMapping("/employees/{employeeId}")
+    public Map<String,Object> getEmployeeWithAddress(@PathVariable("employeeId") Integer employeeId){
+        return service.getEmployeeWithAddress(employeeId);
     }
+
 
 }
 
