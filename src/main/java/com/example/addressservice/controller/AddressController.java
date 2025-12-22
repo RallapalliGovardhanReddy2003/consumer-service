@@ -12,6 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/addresses")
+@CrossOrigin(origins = "http://localhost:4300")
 public class AddressController {
 
     private final AddressService service;
@@ -56,6 +57,8 @@ public class AddressController {
     public Map<String,Object> getEmployeeWithAddress(@PathVariable("employeeId") Integer employeeId){
         return service.getEmployeeWithAddress(employeeId);
     }
+
+
 
 
 }

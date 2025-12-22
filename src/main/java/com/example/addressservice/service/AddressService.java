@@ -7,8 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,33 +52,40 @@ public class AddressService {
         logger.info("Deleting address with id: {}", id);
         repo.deleteById(id);
     }
+
     public List<Address> getAllAddresses() {
         logger.info("Retrieving all addresses");
         return repo.findAll();
     }
+
     public List<Address> getAddressesByEmployeeId(Integer employeeId) {
         logger.info("Retrieving addresses for employeeId: {}", employeeId);
         return repo.findByEmployeeId(employeeId);
     }
 
     // ✅ FIXED METHOD
-    public Map<String,Object> getEmployeeWithAddress(Integer employeeId){
-        logger.info("calling employee service id :{}",employeeId);
+    public Map<String, Object> getEmployeeWithAddress(Integer employeeId) {
+        logger.info("calling employee service id :{}", employeeId);
 
-        Map<String,Object> employee=employeeClient.getEmployeeById(employeeId);
-        logger.info("Employee response:{}",employee);
+        Map<String, Object> employee = employeeClient.getEmployeeById(employeeId);
+        logger.info("Employee response:{}", employee);
 
-        List<Address> address=repo.findByEmployeeId(employeeId);
+        List<Address> address = repo.findByEmployeeId(employeeId);
 
-        logger.info("Address response:{}",address);
-        Map<String,Object> response = new LinkedHashMap<>();
-        response.put("employee",employee);
-        response.put("Address",address);
+        logger.info("Address response:{}", address);
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("employee", employee);
+        response.put("Address", address);
 
 
         return response;
 
 
     }
+    public List<Address> getByEmployeeId(Integer employeeId) {
+        return repo.findByEmployeeId(employeeId);
+    }
+
+
 
 }
